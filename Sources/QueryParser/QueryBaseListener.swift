@@ -67,13 +67,13 @@ open class QueryBaseListener: QueryListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterAnychars(_ ctx: QueryParser.AnycharsContext) { }
+	open func enterKeyword(_ ctx: QueryParser.KeywordContext) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func exitAnychars(_ ctx: QueryParser.AnycharsContext) { }
+	open func exitKeyword(_ ctx: QueryParser.KeywordContext) { }
 
 	/**
 	 * {@inheritDoc}

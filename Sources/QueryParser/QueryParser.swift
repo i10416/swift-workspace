@@ -24,24 +24,25 @@ open class QueryParser: Parser {
 		case OR_OP = 4
 		case NOT_OP = 5
 		case
-			ANYCHARS = 6
-		case WS = 7
+			QUOTED = 6
+		case ANYCHARS = 7
+		case WS = 8
 	}
 
 	public
 		static let RULE_expr = 0, RULE_term = 1, RULE_factor = 2, RULE_keywords = 3,
-			RULE_anychars = 4
+			RULE_keyword = 4
 
 	public
 		static let ruleNames: [String] = [
-			"expr", "term", "factor", "keywords", "anychars",
+			"expr", "term", "factor", "keywords", "keyword",
 		]
 
 	private static let _LITERAL_NAMES: [String?] = [
 		nil, "'('", "')'", "'AND'", "'OR'", "'NOT'",
 	]
 	private static let _SYMBOLIC_NAMES: [String?] = [
-		nil, nil, nil, "AND_OP", "OR_OP", "NOT_OP", "ANYCHARS", "WS",
+		nil, nil, nil, "AND_OP", "OR_OP", "NOT_OP", "QUOTED", "ANYCHARS", "WS",
 	]
 	public
 		static let VOCABULARY = Vocabulary(_LITERAL_NAMES, _SYMBOLIC_NAMES)
@@ -310,7 +311,7 @@ open class QueryParser: Parser {
 			setState(35)
 			try _errHandler.sync(self)
 			switch QueryParser.Tokens(rawValue: try _input.LA(1))! {
-			case .T__0, .ANYCHARS:
+			case .T__0, .QUOTED, .ANYCHARS:
 				try enterOuterAlt(_localctx, 1)
 				setState(32)
 				try keywords()
@@ -344,9 +345,9 @@ open class QueryParser: Parser {
 			return getRuleContext(ExprContext.self, 0)
 		}
 		open
-			func anychars() -> AnycharsContext?
+			func keyword() -> KeywordContext?
 		{
-			return getRuleContext(AnycharsContext.self, 0)
+			return getRuleContext(KeywordContext.self, 0)
 		}
 		override open
 			func getRuleIndex() -> Int
@@ -390,11 +391,10 @@ open class QueryParser: Parser {
 				try match(QueryParser.Tokens.T__1.rawValue)
 
 				break
-
-			case .ANYCHARS:
+			case .QUOTED, .ANYCHARS:
 				try enterOuterAlt(_localctx, 2)
 				setState(41)
-				try anychars()
+				try keyword()
 
 				break
 			default:
@@ -409,7 +409,12 @@ open class QueryParser: Parser {
 		return _localctx
 	}
 
-	public class AnycharsContext: ParserRuleContext {
+	public class KeywordContext: ParserRuleContext {
+		open
+			func QUOTED() -> TerminalNode?
+		{
+			return getToken(QueryParser.Tokens.QUOTED.rawValue, 0)
+		}
 		open
 			func ANYCHARS() -> TerminalNode?
 		{
@@ -418,35 +423,44 @@ open class QueryParser: Parser {
 		override open
 			func getRuleIndex() -> Int
 		{
-			return QueryParser.RULE_anychars
+			return QueryParser.RULE_keyword
 		}
 		override open
 			func enterRule(_ listener: ParseTreeListener)
 		{
 			if let listener = listener as? QueryListener {
-				listener.enterAnychars(self)
+				listener.enterKeyword(self)
 			}
 		}
 		override open
 			func exitRule(_ listener: ParseTreeListener)
 		{
 			if let listener = listener as? QueryListener {
-				listener.exitAnychars(self)
+				listener.exitKeyword(self)
 			}
 		}
 	}
 	@discardableResult
-	open func anychars() throws -> AnycharsContext {
-		var _localctx: AnycharsContext
-		_localctx = AnycharsContext(_ctx, getState())
-		try enterRule(_localctx, 8, QueryParser.RULE_anychars)
+	open func keyword() throws -> KeywordContext {
+		var _localctx: KeywordContext
+		_localctx = KeywordContext(_ctx, getState())
+		try enterRule(_localctx, 8, QueryParser.RULE_keyword)
+		var _la: Int = 0
 		defer {
 			try! exitRule()
 		}
 		do {
 			try enterOuterAlt(_localctx, 1)
 			setState(44)
-			try match(QueryParser.Tokens.ANYCHARS.rawValue)
+			_la = try _input.LA(1)
+			if !(_la == QueryParser.Tokens.QUOTED.rawValue
+				|| _la == QueryParser.Tokens.ANYCHARS.rawValue)
+			{
+				try _errHandler.recoverInline(self)
+			} else {
+				_errHandler.reportMatch(self)
+				try consume()
+			}
 
 		} catch ANTLRException.recognition(let re) {
 			_localctx.exception = re
@@ -482,31 +496,31 @@ open class QueryParser: Parser {
 	}
 
 	static let _serializedATN: [Int] = [
-		4, 1, 7, 47, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7, 4, 1, 0, 1, 0, 1, 0,
+		4, 1, 8, 47, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7, 4, 1, 0, 1, 0, 1, 0,
 		1, 0, 1, 0, 1,
 		0, 5, 0, 17, 8, 0, 10, 0, 12, 0, 20, 9, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 28, 8,
 		1, 10, 1,
 		12, 1, 31, 9, 1, 1, 2, 1, 2, 1, 2, 3, 2, 36, 8, 2, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 3, 3, 43,
 		8, 3, 1, 4,
-		1, 4, 1, 4, 0, 2, 0, 2, 5, 0, 2, 4, 6, 8, 0, 0, 45, 0, 10, 1, 0, 0, 0, 2, 21, 1, 0, 0, 0, 4,
-		35, 1, 0,
-		0, 0, 6, 42, 1, 0, 0, 0, 8, 44, 1, 0, 0, 0, 10, 11, 6, 0, -1, 0, 11, 12, 3, 2, 1, 0, 12, 18,
+		1, 4, 1, 4, 0, 2, 0, 2, 5, 0, 2, 4, 6, 8, 0, 1, 1, 0, 6, 7, 45, 0, 10, 1, 0, 0, 0, 2, 21, 1,
+		0, 0, 0, 4,
+		35, 1, 0, 0, 0, 6, 42, 1, 0, 0, 0, 8, 44, 1, 0, 0, 0, 10, 11, 6, 0, -1, 0, 11, 12, 3, 2, 1,
+		0, 12, 18,
+		1, 0, 0, 0, 13, 14, 10, 1, 0, 0, 14, 15, 5, 4, 0, 0, 15, 17, 3, 2, 1, 0, 16, 13, 1, 0, 0, 0,
+		17, 20,
+		1, 0, 0, 0, 18, 16, 1, 0, 0, 0, 18, 19, 1, 0, 0, 0, 19, 1, 1, 0, 0, 0, 20, 18, 1, 0, 0, 0,
+		21, 22, 6,
+		1, -1, 0, 22, 23, 3, 4, 2, 0, 23, 29, 1, 0, 0, 0, 24, 25, 10, 1, 0, 0, 25, 26, 5, 3, 0, 0,
+		26, 28,
+		3, 4, 2, 0, 27, 24, 1, 0, 0, 0, 28, 31, 1, 0, 0, 0, 29, 27, 1, 0, 0, 0, 29, 30, 1, 0, 0, 0,
+		30, 3, 1,
+		0, 0, 0, 31, 29, 1, 0, 0, 0, 32, 36, 3, 6, 3, 0, 33, 34, 5, 5, 0, 0, 34, 36, 3, 6, 3, 0, 35,
+		32, 1,
+		0, 0, 0, 35, 33, 1, 0, 0, 0, 36, 5, 1, 0, 0, 0, 37, 38, 5, 1, 0, 0, 38, 39, 3, 0, 0, 0, 39,
+		40, 5, 2,
+		0, 0, 40, 43, 1, 0, 0, 0, 41, 43, 3, 8, 4, 0, 42, 37, 1, 0, 0, 0, 42, 41, 1, 0, 0, 0, 43, 7,
 		1, 0, 0,
-		0, 13, 14, 10, 1, 0, 0, 14, 15, 5, 4, 0, 0, 15, 17, 3, 2, 1, 0, 16, 13, 1, 0, 0, 0, 17, 20,
-		1, 0, 0,
-		0, 18, 16, 1, 0, 0, 0, 18, 19, 1, 0, 0, 0, 19, 1, 1, 0, 0, 0, 20, 18, 1, 0, 0, 0, 21, 22, 6,
-		1, -1,
-		0, 22, 23, 3, 4, 2, 0, 23, 29, 1, 0, 0, 0, 24, 25, 10, 1, 0, 0, 25, 26, 5, 3, 0, 0, 26, 28,
-		3, 4, 2,
-		0, 27, 24, 1, 0, 0, 0, 28, 31, 1, 0, 0, 0, 29, 27, 1, 0, 0, 0, 29, 30, 1, 0, 0, 0, 30, 3, 1,
-		0, 0, 0,
-		31, 29, 1, 0, 0, 0, 32, 36, 3, 6, 3, 0, 33, 34, 5, 5, 0, 0, 34, 36, 3, 6, 3, 0, 35, 32, 1,
-		0, 0, 0,
-		35, 33, 1, 0, 0, 0, 36, 5, 1, 0, 0, 0, 37, 38, 5, 1, 0, 0, 38, 39, 3, 0, 0, 0, 39, 40, 5, 2,
-		0, 0, 40,
-		43, 1, 0, 0, 0, 41, 43, 3, 8, 4, 0, 42, 37, 1, 0, 0, 0, 42, 41, 1, 0, 0, 0, 43, 7, 1, 0, 0,
-		0, 44, 45,
-		5, 6, 0, 0, 45, 9, 1, 0, 0, 0, 4, 18, 29, 35, 42,
+		0, 44, 45, 7, 0, 0, 0, 45, 9, 1, 0, 0, 0, 4, 18, 29, 35, 42,
 	]
 
 	public

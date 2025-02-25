@@ -5,9 +5,7 @@ import QueryParser
 public final class QueryTranslator: QueryBaseListener {
     private var stack: [Expr] = []
     public var exprs: [Expr] {
-        get {
-            stack
-        }
+        stack
     }
 
     public override func enterExpr(_ ctx: QueryParser.ExprContext) {
@@ -22,6 +20,7 @@ public final class QueryTranslator: QueryBaseListener {
         }
 
     }
+
     public override func enterTerm(_ ctx: QueryParser.TermContext) {
         if ctx.AND_OP() == nil {
             enterFactor(ctx.factor()!)
@@ -48,10 +47,11 @@ public final class QueryTranslator: QueryBaseListener {
         case 3:
             enterExpr(ctx.expr()!)
         default:
-            enterAnychars(ctx.anychars()!)
+            enterKeyword(ctx.keyword()!)
         }
     }
-    public override func enterAnychars(_ ctx: QueryParser.AnycharsContext) {
+
+    public override func enterKeyword(_ ctx: QueryParser.KeywordContext) {
         stack.append(Expr.keyword(ctx.getText()))
     }
 }

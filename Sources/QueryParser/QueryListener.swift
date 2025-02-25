@@ -55,15 +55,15 @@ public protocol QueryListener: ParseTreeListener {
 	 */
 	func exitKeywords(_ ctx: QueryParser.KeywordsContext)
 	/**
-	 * Enter a parse tree produced by {@link QueryParser#anychars}.
+	 * Enter a parse tree produced by {@link QueryParser#keyword}.
 	 - Parameters:
 	   - ctx: the parse tree
 	 */
-	func enterAnychars(_ ctx: QueryParser.AnycharsContext)
+	func enterKeyword(_ ctx: QueryParser.KeywordContext)
 	/**
-	 * Exit a parse tree produced by {@link QueryParser#anychars}.
+	 * Exit a parse tree produced by {@link QueryParser#keyword}.
 	 - Parameters:
 	   - ctx: the parse tree
 	 */
-	func exitAnychars(_ ctx: QueryParser.AnycharsContext)
+	func exitKeyword(_ ctx: QueryParser.KeywordContext)
 }
