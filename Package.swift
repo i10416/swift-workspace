@@ -19,7 +19,7 @@ let package = Package(
         .executable(
             name: "AsyncMainEntrypoint",
             targets: ["AsyncMainEntrypoint"]
-        )
+        ),
     ],
     // Swift Package Manager declares dependencies globally.
     dependencies: [
@@ -29,6 +29,7 @@ let package = Package(
         // dev dependencies
         .package(url: "https://github.com/swiftlang/swift-format", from: "600.0.0"),
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.57.1"),
+        .package(url: "https://github.com/antlr/antlr4.git", from: "4.13.2"),
     ],
     // A list of (internal) modules that could be either public or private to outside of the package.
     // A module is a primary unit of code distribution and bin-compat.
@@ -39,6 +40,9 @@ let package = Package(
         .executableTarget(
             name: "SyncMainEntrypoint",
             dependencies: [
+                // Local Dependency
+                .target(name: "Core"),
+                .target(name: "QueryTranslator"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
@@ -49,7 +53,7 @@ let package = Package(
             dependencies: [
                 // Local Dependency
                 .target(name: "Core"),
-                .target(name: "DependencyInjectionPattern")
+                .target(name: "DependencyInjectionPattern"),
             ],
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
@@ -62,6 +66,21 @@ let package = Package(
             plugins: [
                 .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
             ]
+        ),
+        .target(
+            name: "QueryTranslator",
+            dependencies: [
+                .target(name: "Core"),
+                .target(name: "QueryParser"),
+            ],
+            plugins: []
+        ),
+        .target(
+            name: "QueryParser",
+            dependencies: [
+                .product(name: "Antlr4", package: "Antlr4")
+            ],
+            plugins: []
         ),
         // Lib
         .target(

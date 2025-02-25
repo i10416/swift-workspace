@@ -1,6 +1,15 @@
 {
-  "originHash" : "a8e403f1c2a4df1b317741558107df13b2ed5386ab67b1f1c382622774b836c3",
+  "originHash" : "604bb74b247405be8e811b534b85ee767f33ddcad47a71cce82329741817b1a8",
   "pins" : [
+    {
+      "identity" : "antlr4",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/antlr/antlr4.git",
+      "state" : {
+        "revision" : "cc82115a4e7f53d71d9d905caa2c2dfa4da58899",
+        "version" : "4.13.2"
+      }
+    },
     {
       "identity" : "combine-schedulers",
       "kind" : "remoteSourceControl",

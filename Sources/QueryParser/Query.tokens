@@ -1,0 +1,12 @@
+T__0=1
+T__1=2
+AND_OP=3
+OR_OP=4
+NOT_OP=5
+ANYCHARS=6
+WS=7
+'('=1
+')'=2
+'AND'=3
+'OR'=4
+'NOT'=5
