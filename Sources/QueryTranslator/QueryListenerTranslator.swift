@@ -8,7 +8,7 @@ public final class QueryListenerTranslator: QueryBaseListener {
         stack
     }
 
-    public override func enterExpr(_ ctx: QueryParser.ExprContext) {
+    override public func enterExpr(_ ctx: QueryParser.ExprContext) {
         if ctx.OR_OP() != nil {
             enterExpr(ctx.expr()!)
             enterTerm(ctx.term()!)
@@ -20,7 +20,7 @@ public final class QueryListenerTranslator: QueryBaseListener {
         }
     }
 
-    public override func enterTerm(_ ctx: QueryParser.TermContext) {
+    override public func enterTerm(_ ctx: QueryParser.TermContext) {
         if ctx.AND_OP() != nil {
             enterTerm(ctx.term()!)
             enterFactor(ctx.factor()!)
@@ -31,7 +31,8 @@ public final class QueryListenerTranslator: QueryBaseListener {
             enterFactor(ctx.factor()!)
         }
     }
-    public override func enterFactor(_ ctx: QueryParser.FactorContext) {
+
+    override public func enterFactor(_ ctx: QueryParser.FactorContext) {
         if ctx.NOT_OP() != nil {
             enterKeywords(ctx.keywords()!)
             let keywords = stack.popLast()!
@@ -41,7 +42,7 @@ public final class QueryListenerTranslator: QueryBaseListener {
         }
     }
 
-    public override func enterKeywords(_ ctx: QueryParser.KeywordsContext) {
+    override public func enterKeywords(_ ctx: QueryParser.KeywordsContext) {
         switch ctx.getChildCount() {
         case 3:
             enterExpr(ctx.expr()!)
@@ -50,7 +51,7 @@ public final class QueryListenerTranslator: QueryBaseListener {
         }
     }
 
-    public override func enterKeyword(_ ctx: QueryParser.KeywordContext) {
+    override public func enterKeyword(_ ctx: QueryParser.KeywordContext) {
         stack.append(Expr.keyword(ctx.getText()))
     }
 }

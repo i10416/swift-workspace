@@ -8,20 +8,19 @@ public struct API: Sendable {
 
 // Implementation
 extension API: DependencyKey {
-    public static let liveValue = Self(apply: {value in
-      print("default: \(value)")
+    public static let liveValue = Self(apply: { value in
+        print("default: \(value)")
     })
 }
 
 // Bootstrap
-extension DependencyValues {
-    public var api: API {
+public extension DependencyValues {
+    var api: API {
         get {
             self[API.self]
         }
         set {
             self[API.self] = newValue
         }
-
     }
 }

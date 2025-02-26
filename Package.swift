@@ -45,7 +45,7 @@ let package = Package(
                 .target(name: "QueryTranslator"),
             ],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .executableTarget(
@@ -56,7 +56,7 @@ let package = Package(
                 .target(name: "DependencyInjectionPattern"),
             ],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         // Lib
@@ -64,7 +64,7 @@ let package = Package(
             name: "Core",
             dependencies: [],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         .target(
@@ -78,7 +78,7 @@ let package = Package(
         .target(
             name: "QueryParser",
             dependencies: [
-                .product(name: "Antlr4", package: "Antlr4")
+                .product(name: "Antlr4", package: "Antlr4"),
             ],
             plugins: []
         ),
@@ -94,7 +94,7 @@ let package = Package(
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
             ],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         // Test(similar to src/test/scala/* and `% Test` scope OR integration test module)
@@ -102,7 +102,7 @@ let package = Package(
             name: "CoreTests",
             dependencies: ["Core"],
             plugins: [
-                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
+                .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins"),
             ]
         ),
         // Build(like plugins.sbt and project/*.scala)
@@ -111,11 +111,11 @@ let package = Package(
             capability: .command(
                 intent: .sourceCodeFormatting(),
                 permissions: [
-                    .writeToPackageDirectory(reason: "This target defines built-time tasks")
+                    .writeToPackageDirectory(reason: "This target defines built-time tasks"),
                 ]
             ),
             dependencies: [
-                .product(name: "SwiftFormat", package: "swift-format")
+                .product(name: "SwiftFormat", package: "swift-format"),
             ]
         ),
     ]

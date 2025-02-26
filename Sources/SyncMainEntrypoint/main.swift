@@ -9,5 +9,5 @@ let lexer = QueryLexer(input)
 let tokenStream = CommonTokenStream(lexer)
 let parser = try QueryParser(tokenStream)
 let translator = QueryVisitorTranslator()
-let expr = translator.visit(try parser.expr())!
+let expr = try translator.visit(parser.expr())!
 print(expr.asQuery())

@@ -3,7 +3,7 @@ import Core
 import QueryParser
 
 public final class QueryVisitorTranslator: QueryBaseVisitor<Expr> {
-    public override func visitExpr(_ ctx: QueryParser.ExprContext) -> Expr? {
+    override public func visitExpr(_ ctx: QueryParser.ExprContext) -> Expr? {
         if ctx.OR_OP() != nil {
             let expr = visitExpr(ctx.expr()!)!
             let term = visitTerm(ctx.term()!)!
@@ -12,7 +12,8 @@ public final class QueryVisitorTranslator: QueryBaseVisitor<Expr> {
             return visitTerm(ctx.term()!)
         }
     }
-    public override func visitTerm(_ ctx: QueryParser.TermContext) -> Expr? {
+
+    override public func visitTerm(_ ctx: QueryParser.TermContext) -> Expr? {
         if ctx.AND_OP() != nil {
             let term = visitTerm(ctx.term()!)!
             let factor = visitFactor(ctx.factor()!)!
@@ -21,7 +22,8 @@ public final class QueryVisitorTranslator: QueryBaseVisitor<Expr> {
             return visitFactor(ctx.factor()!)
         }
     }
-    public override func visitFactor(_ ctx: QueryParser.FactorContext) -> Expr? {
+
+    override public func visitFactor(_ ctx: QueryParser.FactorContext) -> Expr? {
         if ctx.NOT_OP() != nil {
             let keywords = visitKeywords(ctx.keywords()!)!
             return Expr.notExpr(keywords)
@@ -30,7 +32,7 @@ public final class QueryVisitorTranslator: QueryBaseVisitor<Expr> {
         }
     }
 
-    public override func visitKeywords(_ ctx: QueryParser.KeywordsContext) -> Expr? {
+    override public func visitKeywords(_ ctx: QueryParser.KeywordsContext) -> Expr? {
         switch ctx.getChildCount() {
         case 3:
             return visitExpr(ctx.expr()!)
@@ -38,8 +40,8 @@ public final class QueryVisitorTranslator: QueryBaseVisitor<Expr> {
             return visitKeyword(ctx.keyword()!)
         }
     }
-    public override func visitKeyword(_ ctx: QueryParser.KeywordContext) -> Expr? {
+
+    override public func visitKeyword(_ ctx: QueryParser.KeywordContext) -> Expr? {
         return Expr.keyword(ctx.getText())
     }
-
 }

@@ -1,0 +1,4 @@
+#!/bin/bash
+cd `dirname $0`
+cd ..
+swift run -c release --package-path "./bin/.swiftformat" swiftformat --exclude "./bin" .

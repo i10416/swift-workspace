@@ -4,7 +4,7 @@ import DependenciesMacros
 // API
 @DependencyClient
 public struct ShortHandAPI: Sendable {
-    public var apply: @Sendable () async ->  Void = {}
+    public var apply: @Sendable () async -> Void = {}
 }
 
 // Implementation
