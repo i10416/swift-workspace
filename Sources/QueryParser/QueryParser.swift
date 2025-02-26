@@ -113,6 +113,17 @@ open class QueryParser: Parser {
 				listener.exitExpr(self)
 			}
 		}
+		override open
+			func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T?
+		{
+			if let visitor = visitor as? QueryVisitor {
+				return visitor.visitExpr(self)
+			} else if let visitor = visitor as? QueryBaseVisitor {
+				return visitor.visitExpr(self)
+			} else {
+				return visitor.visitChildren(self)
+			}
+		}
 	}
 
 	public final func expr() throws -> ExprContext {
@@ -208,6 +219,17 @@ open class QueryParser: Parser {
 				listener.exitTerm(self)
 			}
 		}
+		override open
+			func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T?
+		{
+			if let visitor = visitor as? QueryVisitor {
+				return visitor.visitTerm(self)
+			} else if let visitor = visitor as? QueryBaseVisitor {
+				return visitor.visitTerm(self)
+			} else {
+				return visitor.visitChildren(self)
+			}
+		}
 	}
 
 	public final func term() throws -> TermContext {
@@ -298,6 +320,17 @@ open class QueryParser: Parser {
 				listener.exitFactor(self)
 			}
 		}
+		override open
+			func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T?
+		{
+			if let visitor = visitor as? QueryVisitor {
+				return visitor.visitFactor(self)
+			} else if let visitor = visitor as? QueryBaseVisitor {
+				return visitor.visitFactor(self)
+			} else {
+				return visitor.visitChildren(self)
+			}
+		}
 	}
 	@discardableResult
 	open func factor() throws -> FactorContext {
@@ -366,6 +399,17 @@ open class QueryParser: Parser {
 		{
 			if let listener = listener as? QueryListener {
 				listener.exitKeywords(self)
+			}
+		}
+		override open
+			func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T?
+		{
+			if let visitor = visitor as? QueryVisitor {
+				return visitor.visitKeywords(self)
+			} else if let visitor = visitor as? QueryBaseVisitor {
+				return visitor.visitKeywords(self)
+			} else {
+				return visitor.visitChildren(self)
 			}
 		}
 	}
@@ -437,6 +481,17 @@ open class QueryParser: Parser {
 		{
 			if let listener = listener as? QueryListener {
 				listener.exitKeyword(self)
+			}
+		}
+		override open
+			func accept<T>(_ visitor: ParseTreeVisitor<T>) -> T?
+		{
+			if let visitor = visitor as? QueryVisitor {
+				return visitor.visitKeyword(self)
+			} else if let visitor = visitor as? QueryBaseVisitor {
+				return visitor.visitKeyword(self)
+			} else {
+				return visitor.visitChildren(self)
 			}
 		}
 	}

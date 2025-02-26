@@ -2,101 +2,98 @@
 
 import Antlr4
 
-
-/**
- * This class provides an empty implementation of {@link QueryListener},
- * which can be extended to create a listener which only needs to handle a subset
- * of the available methods.
- */
+/// This class provides an empty implementation of {@link QueryListener},
+/// which can be extended to create a listener which only needs to handle a subset
+/// of the available methods.
 open class QueryBaseListener: QueryListener {
-     public init() { }
+	public init() {}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterExpr(_ ctx: QueryParser.ExprContext) { }
+	open func enterExpr(_ ctx: QueryParser.ExprContext) {}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func exitExpr(_ ctx: QueryParser.ExprContext) { }
+	open func exitExpr(_ ctx: QueryParser.ExprContext) {}
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterTerm(_ ctx: QueryParser.TermContext) { }
+	open func enterTerm(_ ctx: QueryParser.TermContext) {}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func exitTerm(_ ctx: QueryParser.TermContext) { }
+	open func exitTerm(_ ctx: QueryParser.TermContext) {}
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterFactor(_ ctx: QueryParser.FactorContext) { }
+	open func enterFactor(_ ctx: QueryParser.FactorContext) {}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func exitFactor(_ ctx: QueryParser.FactorContext) { }
+	open func exitFactor(_ ctx: QueryParser.FactorContext) {}
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterKeywords(_ ctx: QueryParser.KeywordsContext) { }
+	open func enterKeywords(_ ctx: QueryParser.KeywordsContext) {}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func exitKeywords(_ ctx: QueryParser.KeywordsContext) { }
+	open func exitKeywords(_ ctx: QueryParser.KeywordsContext) {}
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterKeyword(_ ctx: QueryParser.KeywordContext) { }
+	open func enterKeyword(_ ctx: QueryParser.KeywordContext) {}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func exitKeyword(_ ctx: QueryParser.KeywordContext) { }
+	open func exitKeyword(_ ctx: QueryParser.KeywordContext) {}
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func enterEveryRule(_ ctx: ParserRuleContext) throws { }
+	open func enterEveryRule(_ ctx: ParserRuleContext) throws {}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func exitEveryRule(_ ctx: ParserRuleContext) throws { }
+	open func exitEveryRule(_ ctx: ParserRuleContext) throws {}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func visitTerminal(_ node: TerminalNode) { }
+	open func visitTerminal(_ node: TerminalNode) {}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	open func visitErrorNode(_ node: ErrorNode) { }
+	open func visitErrorNode(_ node: ErrorNode) {}
 }
