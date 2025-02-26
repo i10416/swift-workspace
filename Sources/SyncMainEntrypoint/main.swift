@@ -3,7 +3,7 @@ import Core
 import QueryParser
 import QueryTranslator
 
-let query = "(Financial AND Times OR Guardian) AND Economy"
+let query = "(Apple AND Juice OR Beer OR \"Sparkling Water\") AND Premium"
 let input = ANTLRInputStream(query)
 let lexer = QueryLexer(input)
 let tokenStream = CommonTokenStream(lexer)
