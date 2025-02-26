@@ -9,36 +9,35 @@ public final class QueryTranslator: QueryBaseListener {
     }
 
     public override func enterExpr(_ ctx: QueryParser.ExprContext) {
-        if ctx.OR_OP() == nil {
-            enterTerm(ctx.term()!)
-        } else {
+        if ctx.OR_OP() != nil {
             enterExpr(ctx.expr()!)
             enterTerm(ctx.term()!)
             let rhs = stack.popLast()!
             let lhs = stack.popLast()!
             stack.append(Expr.orExpr(lhs, rhs))
+        } else {
+            enterTerm(ctx.term()!)
         }
-
     }
 
     public override func enterTerm(_ ctx: QueryParser.TermContext) {
-        if ctx.AND_OP() == nil {
-            enterFactor(ctx.factor()!)
-        } else {
+        if ctx.AND_OP() != nil {
             enterTerm(ctx.term()!)
             enterFactor(ctx.factor()!)
             let rhs = stack.popLast()!
             let lhs = stack.popLast()!
             stack.append(Expr.andExpr(lhs, rhs))
+        } else {
+            enterFactor(ctx.factor()!)
         }
     }
     public override func enterFactor(_ ctx: QueryParser.FactorContext) {
-        if ctx.NOT_OP() == nil {
-            enterKeywords(ctx.keywords()!)
-        } else {
+        if ctx.NOT_OP() != nil {
             enterKeywords(ctx.keywords()!)
             let keywords = stack.popLast()!
             stack.append(Expr.notExpr(keywords))
+        } else {
+            enterKeywords(ctx.keywords()!)
         }
     }
 
