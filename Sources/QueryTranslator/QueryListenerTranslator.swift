@@ -2,7 +2,7 @@ import Antlr4
 import Core
 import QueryParser
 
-public final class QueryTranslator: QueryBaseListener {
+public final class QueryListenerTranslator: QueryBaseListener {
     private var stack: [Expr] = []
     public var exprs: [Expr] {
         stack
